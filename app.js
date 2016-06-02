@@ -1,36 +1,41 @@
 document.addEventListener("DOMContentLoaded", function(event){
   //create button node
-  addButton();
-  var btn1 = document.getElementById("btn");
-  btn1.addEventListener("click", function(){
-    addUl()
-  })
+  event.preventDefault();
+  addPix();
 })
 
 
-function addButton(){
-  var btn = document.getElementById("btn");
-  var button = document.createElement("button")
-  button.innerHTML = "Click Me";
-  console.log(button);
-  btn.appendChild(button);
-}
 
-function addUl(){
-  var ul = document.getElementById("this");
-  var head = document.createElement("ul");
-  var inner1 = document.createElement("li");
-  var inner2 = document.createElement("li");
-  var inner3 = document.createElement("li");
 
-  inner1.innerHTML = "One"
-  inner2.innerHTML = "Two"
-  inner3.innerHTML = "Three"
+function addPix(){
+  var alb1 = document.getElementById("alb1");
+  var alb2 = document.getElementById("alb2");
+  var alb3 = document.getElementById("alb3");
 
-  head.appendChild(inner1)
-  head.appendChild(inner2)
-  head.appendChild(inner3)
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function(){
+    if(xhr.readyState === 4) {
+      if(xhr.status < 400){
+        var results = JSON.parse(xhr.responseText);
+        var arr = results.results;
+        var img1 = arr[Math.floor(Math.random()*arr.length)].cover_art;
+        var img2 = arr[Math.floor(Math.random()*arr.length)].cover_art;
+          if(img1 === img2){
+            img2 = arr[Math.floor(Math.random()*arr.length)].cover_art;
+          }
+        var img3 = arr[Math.floor(Math.random()*arr.length)].cover_art;
+          if(img3 === img1 ||  img3 === img2){
+            img3 = arr[Math.floor(Math.random()*arr.length)].cover_art;
+          }
+          alb1.innerHTML = "<img src=\'images/" + img1 + "\'/>";
+          alb2.innerHTML = "<img src=\'images/" + img2 + "\'/>";
+          alb3.innerHTML = "<img src=\'images/" + img3 + "\'/>";
 
-  ul.appendChild(head);
-  console.log(ul);
+          // head.appendChild(inner1)
+          console.log(alb3);
+      }
+    }
+  }
+  xhr.open("GET", "https://lit-fortress-6467.herokuapp.com/object");
+  xhr.send();
 }
