@@ -212,6 +212,8 @@ img {
 	border: 2px solid black;
 	background-color: #EEEEEE;
 	overflow: scroll;
+	padding-top: 10px;
+	padding-left: 10px;
 }
 .cont {
 	margin-left: 9%;
@@ -221,4 +223,8 @@ img {
 button {
 	background: none;
 	border: none;
+}
+
+p {
+	margin-bottom: 20px;
 }
