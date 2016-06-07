@@ -45,14 +45,14 @@ $(document).ready(function(){
     url: "https://api.spotify.com/v1/search?q=" + input + "&type=album&market=US",
     success: function(results){
       var arr = results.albums.items;
-      console.log(arr[0]);
+      console.log(arr[0].name);
       for (var i = 0; i < arr.length; i++){
         var add = $(`<button><div class="pics"><img src="${arr[i].images[0].url}" id="${arr[i].name}"/></div></button>`)
         $("#container2").append(add);
           }
           $('img').click(function(){
             $('#text').append(`<p>${this.id}</p>`);
-            $(this).remove();
+              $(this).remove();
           })
         }
       })
