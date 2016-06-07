@@ -1,40 +1,25 @@
-document.addEventListener("DOMContentLoaded", function(event){
-  //create button node
-  event.preventDefault();
-  addPix();
-})
+$(document).ready(function(){
+  $.ajax({
+    method: "GET",
+    url: "https://api.spotify.com/v1/search?q=adele&type=album&market=US",
+    success: function(results){
+      var arr = results.albums.items;
 
-function addPix(){
-  var alb1 = document.getElementById("alb1");
-  var alb2 = document.getElementById("alb2");
-  var alb3 = document.getElementById("alb3");
-
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function(){
-    if(xhr.readyState === 4) {
-      if(xhr.status < 400){
-        var results = JSON.parse(xhr.responseText);
-        var arr = results.results;
-        var img1 = arr[Math.floor(Math.random()*arr.length)].cover_art;
-        var img2 = arr[Math.floor(Math.random()*arr.length)].cover_art;
-        var img3 = arr[Math.floor(Math.random()*arr.length)].cover_art;
-        for(var i = 0; i < 28; i++){
-          if(img1 === img2){
-            img2 = arr[Math.floor(Math.random()*arr.length)].cover_art;
-          }
-          if(img3 === img1 ||  img3 === img2){
-            img3 = arr[Math.floor(Math.random()*arr.length)].cover_art;
-          }
+      var img1 = arr[Math.floor(Math.random()*arr.length)].images[0].url;
+      var img2 = arr[Math.floor(Math.random()*arr.length)].images[0].url;
+      var img3 = arr[Math.floor(Math.random()*arr.length)].images[0].url;
+      for(var i = 0; i < 28; i++){
+        if(img1 === img2){
+          img2 = arr[Math.floor(Math.random()*arr.length)].images[0].url;
         }
-          alb1.innerHTML = "<img src=\'images/" + img1 + "\'/>";
-          alb2.innerHTML = "<img src=\'images/" + img2 + "\'/>";
-          alb3.innerHTML = "<img src=\'images/" + img3 + "\'/>";
-
-          // head.appendChild(inner1)
-          console.log(alb3);
+        if(img3 === img1 ||  img3 === img2){
+          img3 = arr[Math.floor(Math.random()*arr.length)].images[0].url;
+        }
       }
+      $('#alb1').html("<img src=\'" + img1 + "\'/>");
+      $('#alb2').html("<img src=\'" + img2 + "\'/>");
+      $('#alb3').html("<img src=\'" + img3 + "\'/>");
+
     }
-  }
-  xhr.open("GET", "https://lit-fortress-6467.herokuapp.com/object");
-  xhr.send();
-}
+  })
+})

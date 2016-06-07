@@ -54,6 +54,7 @@ table {
 * {
   box-sizing: border-box;
 	font-family: myFirstFont;
+	white-space: nowrap;
 }
 
 header {
@@ -198,12 +199,13 @@ img {
 
 .pics {
 	display: inline-block;
-	margin: 10px;
+
 }
 
 .img {
 	height: 20vh;
 	width: 20vh;
+	float: left;
 }
 
 #text {
